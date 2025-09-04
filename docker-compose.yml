@@ -1,0 +1,56 @@
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: avalidacao_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: avalidacao
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1212
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - avalidacao_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: avalidacao_backend
+    restart: always
+    environment:
+      DATABASE_URL: "postgresql://postgres:1212@database:5432/avalidacao?schema=public"
+      JWT_SECRET: "your-secret-key-here"
+      NODE_ENV: "production"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - database
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - avalidacao_network
+      
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: avalidacao_frontend
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:3001"
+      NODE_ENV: "production"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - avalidacao_network
+volumes:
+  postgres_data:
+
+networks:
+  avalidacao_network:
+    driver: bridge

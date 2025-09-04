@@ -21,15 +21,7 @@ Este projeto utiliza Docker Compose para facilitar a execução da aplicação c
 cd avalidacao
 ```
 
-### 2. Configure as variáveis de ambiente
-
-Copie o arquivo `.env.example` para `.env` e ajuste as configurações conforme necessário:
-
-```bash
-cp .env.example .env
-```
-
-### 3. Execute com Docker Compose
+### 2. Execute com Docker Compose
 
 ```bash
 # Construir e executar todos os serviços
