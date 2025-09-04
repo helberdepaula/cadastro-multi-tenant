@@ -1,4 +1,4 @@
-# Sistema de Avaliação - Docker Setup
+# Sistema de cadastro multi-tenant - Docker Setup
 
 Este projeto utiliza Docker Compose para facilitar a execução da aplicação completa com todas as suas dependências.
 
