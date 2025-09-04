@@ -60,6 +60,10 @@ export class UsersService {
       where.role = query.role;
     }
 
+    if (query.tenantId) {
+      where.tenantId = query.tenantId;
+    }
+
     const page = query.page ? parseInt(query.page, 10) : 1;
     const limit = query.limit ? parseInt(query.limit, 10) : 10;
     const skip = (page - 1) * limit;
@@ -143,10 +147,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }
-    return this.prisma.user.update({
-      where: { id },
-      data: { updatedAt: new Date() },
-    });
+    return this.prisma.user.delete({ where: { id } });
   }
 
 

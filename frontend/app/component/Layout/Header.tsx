@@ -47,7 +47,7 @@ const Header: React.FC<HeartProps> = ({
     try {
       await logout();
       router.push('/dashboard');
-
+      window.location.reload();
     } catch {
     }
   };
